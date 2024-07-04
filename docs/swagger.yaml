@@ -1,0 +1,57 @@
+definitions:
+  errorException.BadRequestResponse:
+    properties:
+      message:
+        example: token_invalid
+        type: string
+      status_code:
+        example: 400
+        type: integer
+    type: object
+  errorException.InternalServerResponse:
+    properties:
+      message:
+        example: internal_server_error
+        type: string
+      status_code:
+        example: 500
+        type: integer
+    type: object
+  errorException.NotFoundResponse:
+    properties:
+      message:
+        example: user_not_found
+        type: string
+      status_code:
+        example: 404
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /login:
+    get:
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errorException.BadRequestResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorException.NotFoundResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errorException.InternalServerResponse'
+      tags:
+      - Example
+securityDefinitions:
+  Bearer:
+    description: 'Example: "Bearer {token}".'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
